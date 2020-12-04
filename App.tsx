@@ -1,13 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   SafeAreaView,
@@ -16,18 +7,23 @@ import {
   View,
   Text,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native';
+import {Notifications} from 'react-native-notifications';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
 
 declare const global: {HermesInternal: null | {}};
 
+const RenderNotification = ({notification}: any) => (
+  <View style={{backgroundColor: 'lightgray', margin: 10}}>
+    <Text>{`Title: ${notification.title}`}</Text>
+    <Text>{`Body: ${notification.body}`}</Text>
+    <Text>{'Mast '}</Text>
+  </View>
+);
+
+let id = 1;
 const App = () => {
   return (
     <>
@@ -43,24 +39,41 @@ const App = () => {
             </View>
           )}
           <View style={styles.body}>
+            <View>
+              <TouchableOpacity
+                style={{backgroundColor: 'pink', height: 50, margin: 100}}
+                onPress={() => {
+                  console.log('testing');
+                  Notifications.postLocalNotification(
+                    {
+                      badge: 1,
+                      body: 'body',
+                      identifier: 'str',
+                      payload: null,
+                      thread: 'some',
+                      title: 'title',
+                      type: 'ongoing',
+                      sound: 'chime.aiff',
+                    },
+                    id,
+                  );
+                  id++;
+                }}>
+                <Text>Notification test</Text>
+              </TouchableOpacity>
+            </View>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                screen and then come back to see your edits.
+                Edit <Text style={styles.highlight}>App.tsx</Text> to change
+                this screen and then come back to see your edits.
               </Text>
             </View>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
             </View>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
             </View>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Learn More</Text>
@@ -68,7 +81,6 @@ const App = () => {
                 Read the docs to discover what to do next:
               </Text>
             </View>
-            <LearnMoreLinks />
           </View>
         </ScrollView>
       </SafeAreaView>
