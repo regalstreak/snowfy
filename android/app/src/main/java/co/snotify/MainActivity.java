@@ -1,4 +1,4 @@
-package com.snotify;
+package co.snotify;
 
 import com.facebook.react.ReactActivity;
 
