@@ -1,4 +1,4 @@
-package com.snowfy;
+package co.snowfy;
 
 import com.facebook.react.ReactActivity;
 
