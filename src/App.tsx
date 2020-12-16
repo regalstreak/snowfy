@@ -16,6 +16,7 @@ import {
 	View,
 	Text,
 	StatusBar,
+	NativeModules,
 } from 'react-native';
 
 import {
@@ -29,6 +30,10 @@ import {
 declare const global: { HermesInternal: null | {} };
 
 const App = () => {
+	React.useEffect(() => {
+		NativeModules.Notifications.testMethod();
+	}, []);
+
 	return (
 		<>
 			<StatusBar barStyle='dark-content' />

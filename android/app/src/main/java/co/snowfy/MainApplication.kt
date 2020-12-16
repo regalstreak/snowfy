@@ -2,6 +2,7 @@ package co.snowfy
 
 import android.app.Application
 import android.content.Context
+import co.snowfy.notifications.NotificationsPackage
 import com.facebook.react.*
 import com.facebook.soloader.SoLoader
 import java.lang.reflect.InvocationTargetException
@@ -15,7 +16,9 @@ class MainApplication : Application(), ReactApplication {
         override fun getPackages(): List<ReactPackage> {
             // Packages that cannot be autolinked yet can be added manually here, for example:
             // packages.add(new MyReactNativePackage());
-            return PackageList(this).packages
+            val packages = PackageList(this).packages
+            packages.add(NotificationsPackage())
+            return packages
         }
 
         override fun getJSMainModuleName(): String {
