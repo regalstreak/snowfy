@@ -4,4 +4,5 @@ module.exports = {
 	tabWidth: 4,
 	useTabs: true,
 	jsxSingleQuote: true,
+	printWidth: 120,
 };
