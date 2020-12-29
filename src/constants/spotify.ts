@@ -14,3 +14,5 @@ export const spotifyDefaultHeaders = {
 	Accept: 'application/json',
 	'Content-Type': 'application/json',
 };
+
+export const spotifyAPIBase = 'https://api.spotify.com/v1';

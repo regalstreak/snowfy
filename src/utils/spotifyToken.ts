@@ -8,6 +8,7 @@ const clearLoginStorage = async () => {
 		await removeItem(asyncStorageKeys.signedIn);
 		await removeItem(asyncStorageKeys.spotifyAccessToken);
 		await setItem(asyncStorageKeys.spotifyRefreshToken, false);
+		await removeItem(asyncStorageKeys.spotifyTokenExpiry);
 	} catch (error) {
 		// Do nothing
 	}
@@ -32,6 +33,7 @@ export const getSpotifyToken = async (attempt = 1) => {
 				refreshToken = authResult.refreshToken;
 				await setItem(asyncStorageKeys.spotifyAccessToken, authResult.accessToken);
 				await setItem(asyncStorageKeys.spotifyRefreshToken, authResult.refreshToken);
+				await setItem(asyncStorageKeys.spotifyTokenExpiry, authResult.accessTokenExpirationDate);
 			} else {
 				throw 'Could not log in';
 			}
@@ -62,6 +64,7 @@ export const getSpotifyToken = async (attempt = 1) => {
 			if ((await tryAuth()).ok) {
 				await setItem(asyncStorageKeys.spotifyRefreshToken, refreshResult.refreshToken);
 				await setItem(asyncStorageKeys.spotifyAccessToken, refreshResult.accessToken);
+				await setItem(asyncStorageKeys.spotifyTokenExpiry, refreshResult.accessTokenExpirationDate);
 				return;
 			} else {
 				throw 'Error refreshing token';

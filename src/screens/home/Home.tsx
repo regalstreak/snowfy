@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NativeModules, Text, TouchableOpacity, View } from 'react-native';
 import { useSetRecoilState } from 'recoil';
+import { spotifyAPIBase } from '../../constants/spotify';
 import { spotifyLogout } from '../../utils/spotifyToken';
 import { isLoggedInAtom } from '../main/Main';
 
 export const Home = () => {
 	const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+
+	useEffect(() => {
+		(async () => {
+			const spotifyPlaylists = await (await fetch(`${spotifyAPIBase}/me/playlists`)).json();
+			console.log(JSON.stringify(spotifyPlaylists, null, 2));
+		})();
+	}, []);
+
 	return (
 		<View style={{ flex: 1 }}>
 			<TouchableOpacity
