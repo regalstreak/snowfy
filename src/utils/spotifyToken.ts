@@ -4,9 +4,13 @@ import { spotifyAuth, spotifyDefaultHeaders } from './../constants/spotify';
 import { authorize, refresh } from 'react-native-app-auth';
 
 const clearLoginStorage = async () => {
-	await removeItem(asyncStorageKeys.signedIn);
-	await removeItem(asyncStorageKeys.spotifyAccessToken);
-	await removeItem(asyncStorageKeys.spotifyRefreshToken);
+	try {
+		await removeItem(asyncStorageKeys.signedIn);
+		await removeItem(asyncStorageKeys.spotifyAccessToken);
+		await setItem(asyncStorageKeys.spotifyRefreshToken, false);
+	} catch (error) {
+		// Do nothing
+	}
 };
 
 export const getSpotifyToken = async (attempt = 1) => {
